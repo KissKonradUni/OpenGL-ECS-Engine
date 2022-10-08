@@ -53,7 +53,6 @@ namespace engine {
 	{
 		unsigned char data[3] = {red, green, blue};
 		this->mTextureID = core::createTexture2D(&data[0], 1, 1, wrapping, filtering, useMipmaps);
-		delete data;
 	}
 
 	glTexture::~glTexture()

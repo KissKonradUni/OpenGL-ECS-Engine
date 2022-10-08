@@ -201,14 +201,13 @@ int main(int argc, char** argv) {
 	cube.addComponent(new base::bMaterialComponent(
 		{ 
 			new engine::glTexture(
-				".\\res\\textures\\test.png",
+				"./res/textures/test.png",
 				core::glTextureWrappingTypes::gl_repeat,
 				core::glTextureFilteringTypes::gl_bilinear
 			)
 		},
-		".\\res\\shaders\\vertex.glsl",
-		".\\res\\shaders\\fragment.glsl",
-		".\\res\\shaders\\geometry.glsl"
+		"./res/shaders/vertex.glsl",
+		"./res/shaders/fragment.glsl"
 	));
 	cube.addComponent(new base::bRendererComponent(
 		vertices, indicies,
@@ -225,13 +224,13 @@ int main(int argc, char** argv) {
 	groundPlane.addComponent(new base::bMaterialComponent(
 		{
 			new engine::glTexture(
-				".\\res\\textures\\gravel.jpg",
+				"./res/textures/gravel.jpg",
 				core::glTextureWrappingTypes::gl_repeat,
 				core::glTextureFilteringTypes::gl_bilinear
 			)
 		},
-		".\\res\\shaders\\vertex.glsl",
-		".\\res\\shaders\\fragment.glsl"
+		"./res/shaders/vertex.glsl",
+		"./res/shaders/fragment.glsl"
 	));
 	groundPlane.addComponent(new base::bRendererComponent(
 		quadVerts, quadIndicies,

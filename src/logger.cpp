@@ -34,12 +34,12 @@ namespace DebugConsole {
 		std::time_t time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		std::string buf;
 		char* buffer = new char[32];
-		ctime_s(&buffer[0], 32, &time);
+		ctime_r(&time, &buffer[0]);
 		if (buffer[strlen(buffer) - 1] == '\n') buffer[strlen(buffer) - 1] = '\0';
 		buf += buffer;
-		delete buffer;
+		delete[] buffer;
 
 		return buf;
 	}
 
-};
+}
