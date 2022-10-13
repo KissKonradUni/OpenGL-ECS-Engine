@@ -1,36 +1,31 @@
 cmake_minimum_required(VERSION 3.24)
 project(OpenGL_ECS_Engine)
 
+set(BINARY ${CMAKE_PROJECT_NAME})
+
 find_package(OpenGL REQUIRED)
-
-set(CMAKE_CXX_STANDARD 20)
-
-set(CMAKE_MODULE_PATH /usr/local/lib/cmake)
-set(CMAKE_PREFIX_PATH /usr/local/lib/cmake/glfw3)
-
 find_package (PkgConfig REQUIRED)
 find_package (OpenGL REQUIRED)
-find_package (glfw3 REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package (glfw3 CONFIG REQUIRED)
+find_package(glad CONFIG REQUIRED)
 
-include_directories(/usr/local/include glad)
-include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(include)
-include_directories(include/glad)
-include_directories(/usr/include/GLFW)
-include_directories(include/glm)
-include_directories(include/glm/detail)
-include_directories(include/glm/ext)
-include_directories(include/glm/gtc)
-include_directories(include/glm/gtx)
-include_directories(include/glm/simd)
-include_directories(include/KHR)
-
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules/)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
 
 file(GLOB SOURCE_FILES
         "src/*.hpp"
         "src/*.cpp"
         )
 
-add_compile_options(-lglfw)
-add_executable(OpenGL_ECS_Engine src/glad.c ${SOURCE_FILES})
-target_link_libraries(OpenGL_ECS_Engine ${GLFW3_LIBRARY} glfw)
+if(CMAKE_CXX_COMPILER_ID MATCHES "CLANG")
+        target_compile_options(${BINARY} PRIVATE -fp:fast)
+        target_compile_options(${BINARY} PRIVATE -march:native)
+endif() 
+
+add_executable(${BINARY} src/glad.c ${SOURCE_FILES})
+target_link_libraries(${BINARY} PRIVATE glfw glm::glm OpenGL::GL glad::glad)
+
+file(COPY res DESTINATION .)

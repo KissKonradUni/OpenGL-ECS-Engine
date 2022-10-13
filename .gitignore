@@ -37,3 +37,5 @@ Debug/
 lib/
 x64/
 /...old
+.vscode/
+build/
